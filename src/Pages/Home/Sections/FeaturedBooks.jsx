@@ -25,7 +25,7 @@ const FeaturedBooks = () => {
       <Slider className='mt-16' {...settings}>
         {featuredBooks.map((item, index) => {
           return (
-              <BookCarousel key={item.id} bookName={item.name} bookImage={item.image} author={item.author}/>
+            <BookCarousel key={item.id} bookName={item.name} bookImage={item.image} author={item.author}/>
           )
         })}
       </Slider>
