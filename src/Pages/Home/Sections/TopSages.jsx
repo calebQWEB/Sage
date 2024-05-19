@@ -7,13 +7,13 @@ import { slideIn } from "../../../utils/motion";
 const TopSages = () => {
   return (
     <section className={`${styles.paddingY} text-center sm:text-start`}>
-      <h1 className={`${styles.sectionHeadText}`}>Sages of the week</h1>
+      <h1 className={`${styles.sectionHeadText}`}>Sages of the month</h1>
       <p className={`${styles.sectionSubText}`}>
         Every month sages are picked based on number of books read, Are you one
         of them?
       </p>
 
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-5 mt-16">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-5 mt-16 overflow-x-hidden">
         {topSagesNames.map((item, index) => {
           return (
             <TopSageCard
