@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { heroImage } from "../../../constants";
 import Button from '../../../components/common/Button'
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const heroText = ["Page", "Brain cell", "Sage", "Book"];
