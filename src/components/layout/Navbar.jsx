@@ -1,18 +1,42 @@
 import React from "react";
+import { onAuthStateChanged } from 'firebase/auth'
+import {auth} from '../../firebase.config.js'
 import Button from "../common/Button";
 import Logo from "../../assets/sage-logo.png";
 import MobileNav from "./mobileNav";
+import OptionsBar from './OptionsBar'
+import { useSelector, useDispatch } from 'react-redux';
+
+import { showMobileNav, hideMobileNav } from "../../ReduxSlices/mobileNavSlice";
+import { showCategories} from "../../ReduxSlices/categoriesSlice";
+import { showLoginModal } from "../../ReduxSlices/loginModalSlice"
+
+import { showOptions } from "../../ReduxSlices/optionsBar.js";
 import { Link } from "react-router-dom";
 import { styles } from "../../styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { GiOpenBook, GiWhiteBook } from "react-icons/gi";
 import Categories from "./Categories";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
-  const [showNav, setShowNav] = useState(false);
-  const [showCategories, setShowCategories] = useState(false);
+  const [user, setUser]  = useState({})
+
+  const NavIsVisible = useSelector((state) => state.mobileNav.value)
+  const CategoriesIsVisible = useSelector((state) => state.categories.value)
+  const optionsIsVisible = useSelector((state) => state.options.value)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+      console.log(currentUser)
+    })
+
+    return unsubscribe
+  }, [user])
 
   return (
     <nav
@@ -36,11 +60,11 @@ const Navbar = () => {
           } cursor-pointer hover:underline`}
           onClick={() => {
             setActive("Categories");
-            setShowCategories((prev) => !prev);
+            dispatch(showCategories())
           }}
         >
           Categories
-          {showCategories && <Categories />}
+          {CategoriesIsVisible && <Categories />}
         </li>
 
         <li
@@ -66,18 +90,25 @@ const Navbar = () => {
         />
       </form>
 
-      <div className="hidden sm:flex items-center gap-2">
-        <Button text="Sign up" borderColor="accent" />
-        <Button text="Login" borderColor="accent" />
+      {user? <div onClick={() => dispatch(showOptions())}>
+        <img className='w-10 h-10 rounded-full cursor-pointer' src={user.photoURL || 'https://res.cloudinary.com/dmdg0lwhz/image/upload/v1716033496/cubes-male-avatar-1_wvwbyq.png'} alt='User image'/>
+        {optionsIsVisible && <OptionsBar />}
       </div>
+      
+      :
+      <div className="hidden sm:flex items-center gap-2">
+        <Button text="Sign up" borderColor="accent" click={() => dispatch(showLoginModal())}/>
+        <Button text="Login" borderColor="accent" click={() => dispatch(showLoginModal())}/>
+      </div>
+      }
 
       <div className="block sm:hidden">
-        {showNav ? (
+        {NavIsVisible ? (
           <GiOpenBook
             size={40}
             color="#cccccc"
             onClick={() => {
-              setShowNav((prevState) => !prevState);
+              dispatch(hideMobileNav())
             }}
           />
         ) : (
@@ -85,13 +116,13 @@ const Navbar = () => {
             size={40}
             color="#cccccc"
             onClick={() => {
-              setShowNav((prevState) => !prevState);
+             dispatch(showMobileNav())
             }}
           />
         )}
       </div>
 
-      {showNav && <MobileNav active={active} setActive={setActive} showCategories={showCategories} setShowCategories={setShowCategories}/>}
+      {NavIsVisible && <MobileNav active={active} setActive={setActive}/>}
     </nav>
   );
 };
