@@ -1,15 +1,30 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import { styles } from "../../../styles";
 import { topSagesNames } from "../../../constants";
 import TopSageCard from "../Components/topSageCard";
 import { slideIn } from "../../../utils/motion";
+import {bookDb} from '../../Details/Functions/readBooks'
 
 const TopSages = () => {
+  const {getTopUsers} = bookDb()
+  const [topSages, setTopSage] = useState(null)
+
+  useEffect(() => {
+    const fetchTopUsers = async () => {
+      const users = await getTopUsers()
+      setTopSage(users)
+
+      console.log(users)
+    }
+
+    fetchTopUsers()
+  }, [])
+
   return (
     <section className={`${styles.paddingY} text-center sm:text-start`}>
       <h1 className={`${styles.sectionHeadText}`}>Sages of the month</h1>
       <p className={`${styles.sectionSubText}`}>
-        Every month sages are picked based on number of books read, Are you one
+        Everyday sages are picked based on number of books read, Are you one
         of them?
       </p>
 

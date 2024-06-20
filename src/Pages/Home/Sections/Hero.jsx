@@ -1,14 +1,25 @@
 import React from "react";
+import {useNavigate} from 'react-router-dom'
+import {showLoginModal} from '../../../ReduxSlices/loginModalSlice'
 import { styles } from "../../../styles";
 import { useState } from "react";
 import { useEffect } from "react";
 import { heroImage } from "../../../constants";
 import Button from '../../../components/common/Button'
 import { motion } from "framer-motion";
+import {useDispatch} from 'react-redux'
+
+import { onAuthStateChanged } from 'firebase/auth'
+import {auth} from '../../../firebase.config'
 
 const Hero = () => {
+  const navigate = useNavigate()
+
   const heroText = ["Page", "Brain cell", "Sage", "Book"];
   const [heroChangeCount, setHeroChangeCount] = useState(0);
+  const [user, setUser] = useState(null)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -17,6 +28,22 @@ const Hero = () => {
 
     return () => clearInterval(intervalId);
   }, [heroChangeCount])
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+    })
+
+    return unsubscribe
+  }, [user])
+
+  const showLoginOptions = () => {
+    if (user) {
+      navigate('/user-page')
+    } else {
+      dispatch(showLoginModal())
+    }
+  }
 
   return (
     <>
@@ -32,7 +59,7 @@ const Hero = () => {
             </p>
 
             <div className="flex gap-2 items-center justify-center sm:justify-normal">
-              <Button text='Start Reading' borderColor='accent'/>
+              <Button text='Start Reading' borderColor='accent' click={showLoginOptions}/>
               <Button text='Try Premium' borderColor='accent'/>
             </div>
           </article>

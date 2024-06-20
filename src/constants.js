@@ -67,3 +67,54 @@ export const featuredBooks = [
         image: pinkBook
     },
 ]
+
+export const genres = [
+    {
+        id: 0,
+        name: 'Self-help'
+    },
+    {
+        id: 1,
+        name: 'Adventure'
+    },
+    {
+        id: 2,
+        name: 'History'
+    },
+    {
+        id: 3,
+        name: 'Mystery'
+    },
+    {
+        id: 4,
+        name: 'Autobiography'
+    },
+    {
+        id: 5,
+        name: 'Fiction'
+    },
+    {
+        id: 6,
+        name: 'Nature'
+    },
+    {
+        id: 7,
+        name: 'Sci-fi'
+    },
+    {
+        id: 8,
+        name: 'Fantasy'
+    },
+    {
+        id: 9,
+        name: 'Education'
+    },
+    {
+        id: 10,
+        name: 'Thriller'
+    },
+    {
+        id: 11,
+        name: 'Humor'
+    },
+]

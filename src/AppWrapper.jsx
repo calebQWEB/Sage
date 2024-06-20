@@ -21,7 +21,7 @@ const AppWrapper = () => {
     <>
     {loginModalIsVisible && <Login />}
     <Navbar />
-    <div className="violet-gradient min-h-full" 
+    <div className="violet-gradient min-h-full relative" 
         onClick={() => {
             dispatch(hideMobileNav())
             dispatch(hideCategories())

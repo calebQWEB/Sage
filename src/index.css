@@ -70,18 +70,6 @@ textarea {
   background: linear-gradient(-90deg, #0e0425 0%, #1c1c1c 100%); /* Gradient from dark purple to almost black */
 }
 
-/* canvas- styles */
-.canvas-loader {
-  font-size: 10px;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  position: relative;
-  text-indent: -9999em;
-  animation: mulShdSpin 1.1s infinite ease;
-  transform: translateZ(0);
-}
-
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
@@ -90,4 +78,14 @@ textarea {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
+}
+
+/* PDF */
+.pdf-container {
+  height: 600px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.react-pdf__Page {
+  margin-bottom: 2rem;
 }

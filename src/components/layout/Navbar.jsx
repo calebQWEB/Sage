@@ -10,8 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { showMobileNav, hideMobileNav } from "../../ReduxSlices/mobileNavSlice";
 import { showCategories} from "../../ReduxSlices/categoriesSlice";
 import { showLoginModal } from "../../ReduxSlices/loginModalSlice"
-
 import { showOptions } from "../../ReduxSlices/optionsBar.js";
+
 import { Link } from "react-router-dom";
 import { styles } from "../../styles";
 import { useState, useEffect } from "react";
@@ -21,7 +21,7 @@ import Categories from "./Categories";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
-  const [user, setUser]  = useState({})
+  const [user, setUser]  = useState(null)
 
   const NavIsVisible = useSelector((state) => state.mobileNav.value)
   const CategoriesIsVisible = useSelector((state) => state.categories.value)

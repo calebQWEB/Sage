@@ -5,6 +5,7 @@ import { styles } from "../../styles";
 import Categories from "./Categories";
 import { useSelector, useDispatch } from 'react-redux';
 import { hideCategories, showCategories} from "../../ReduxSlices/categoriesSlice";
+import {hideMobileNav} from '../../ReduxSlices/mobileNavSlice'
 import { showLoginModal } from "../../ReduxSlices/loginModalSlice"
 
 const MobileNav = ({active, setActive}) => {
@@ -13,7 +14,7 @@ const MobileNav = ({active, setActive}) => {
 
   return (
     <div
-      className={`absolute right-0 left-0 top-full bg-primary ${styles.paddingX} py-10 bounce-in-top grid gap-4`}
+      className={`z-50 absolute right-0 left-0 top-full bg-primary ${styles.paddingX} py-10 bounce-in-top grid gap-4`}
     >
       <ul className="grid g-4 mr-auto gap-[32px]">
         <li
@@ -47,8 +48,12 @@ const MobileNav = ({active, setActive}) => {
       </ul>
 
       <div className="grid items-start justify-start gap-4">
-        <Button text="Sign up" borderColor="accent" click={() => dispatch(showLoginModal())}/>
-        <Button text="Login" borderColor="accent" click={() => dispatch(showLoginModal())}/>
+        <Button text="Sign up" borderColor="accent" click={() => {
+          dispatch(showLoginModal())
+          dispatch(hideMobileNav())}}/>
+        <Button text="Login" borderColor="accent" click={() => {
+          dispatch(showLoginModal())
+          dispatch(hideMobileNav())}}/>
       </div>
     </div>
   );

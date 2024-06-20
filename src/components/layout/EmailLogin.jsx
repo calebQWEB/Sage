@@ -1,10 +1,11 @@
 import {useState} from 'react'
-import {login} from '../../utils/auth'
 import {hideLoginModal} from '../../ReduxSlices/loginModalSlice.js';
 import { useDispatch } from 'react-redux';
+import { useAuth } from '../../utils/auth';
 
 
 const EmailLogin = ({setSignInModal}) => {
+    const {login} = useAuth()
     const dispatch = useDispatch()
     const [inputDetails, setInputDetails] = useState({
         email: '',

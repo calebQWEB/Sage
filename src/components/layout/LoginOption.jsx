@@ -1,11 +1,13 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { MdEmail } from "react-icons/md";
-import {signInWithGoogle} from '../../utils/auth'
 import {hideLoginModal} from '../../ReduxSlices/loginModalSlice'
 import {useDispatch} from 'react-redux'
+import { useAuth } from "../../utils/auth";
 
 const LoginOption = ({click}) => {
+  const {signInWithGoogle} = useAuth()
+  
   const dispatch = useDispatch()
   return (
     <div className="bg-white-100 p-6 sm:p-16 rounded-md gap-3 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 text-center">

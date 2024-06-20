@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EmailLogin from "./EmailLogin";
 import EmailSignUp from "./EmailSignUp";
+import {Link} from 'react-router-dom'
 
 const Email = () => {
   const [signInModal, setSignInModal] = useState(false);
@@ -13,6 +14,8 @@ const Email = () => {
 
       {!signInModal && <EmailSignUp setSignInModal={setSignInModal}/>}
       {signInModal && <EmailLogin setSignInModal={setSignInModal}/>}
+
+      <Link to='/user-page'>Not now</Link>
     </div>
   );
 };
